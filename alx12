@@ -1,0 +1,75 @@
+
+ 
+public class DynamicArrayStack {
+     private int top;
+    private int capacity;
+    private int[] array;
+
+    public DynamicArrayStack(int cap) {
+        capacity = cap;
+        array = new int[capacity];
+        top = -1;
+    }
+
+    public void push(int data) {
+        if (isFull()){
+            expandArray();     
+        }
+        array[++top] = data;    
+    }
+
+    public void expandArray() {
+        int curr_size = top + 1;
+        int[] new_array = new int[curr_size * 2];
+        for(int i=0;i<curr_size;i++){
+            new_array[i] = array[i];
+        }
+        array = new_array;              
+        capacity = new_array.length;
+    }
+
+    public boolean isFull() {
+        if (capacity == top+1)
+            return true;
+        else
+            return false;
+    }
+
+    public int pop() {
+        if (isEmpty()) {
+            System.out.println("Stack is empty");
+            return -1;
+        } else {
+            reduceSize();               
+            return array[top--];
+        }
+    }
+
+    public void reduceSize() {
+        int curr_length = top+1;
+        if (curr_length < capacity / 2) {
+            int[] new_array = new int[capacity / 2];
+            System.arraycopy(array, 0, new_array, 0, new_array.length);
+            array = new_array;
+            capacity = new_array.length;
+        }
+    }
+
+    public boolean isEmpty() {
+        if (top == -1)
+            return true;
+        else
+            return false;
+    }
+
+    public void display() {
+        for (int i = 0; i <= top; i++) {
+            System.out.print(array[i] + "=>");
+        }
+        System.out.println();
+        System.out.println("ARRAY SIZE:" + array.length);
+    }
+
+}
+
+    
